@@ -12,14 +12,12 @@ namespace WebShop.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Products_OrderProduct
+    public partial class Products_OrderProduct : Product
     {
         public int Quantity { get; set; }
         public int ReceiptId { get; set; }
         public int OrderId { get; set; }
-        public int Id { get; set; }
     
         public virtual Order Order { get; set; }
-        public virtual Product Product { get; set; }
     }
 }

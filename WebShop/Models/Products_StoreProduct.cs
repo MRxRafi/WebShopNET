@@ -12,12 +12,9 @@ namespace WebShop.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Products_StoreProduct
+    public partial class Products_StoreProduct : Product
     {
         public string Img { get; set; }
         public int Stock { get; set; }
-        public int Id { get; set; }
-    
-        public virtual Product Product { get; set; }
     }
 }

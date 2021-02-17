@@ -17,9 +17,6 @@ namespace WebShop.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
-        public int Section { get; set; }
-    
-        public virtual Products_OrderProduct Products_OrderProduct { get; set; }
-        public virtual Products_StoreProduct Products_StoreProduct { get; set; }
+        public Section Section { get; set; }
     }
 }

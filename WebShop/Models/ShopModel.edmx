@@ -131,23 +131,13 @@
           <EntitySet Name="Clients" EntityType="WebShopModel.Client" />
           <EntitySet Name="Orders" EntityType="WebShopModel.Order" />
           <EntitySet Name="Products" EntityType="WebShopModel.Product" />
-          <EntitySet Name="Products_OrderProduct" EntityType="WebShopModel.Products_OrderProduct" />
-          <EntitySet Name="Products_StoreProduct" EntityType="WebShopModel.Products_StoreProduct" />
           <AssociationSet Name="FK_OrderClient" Association="WebShopModel.FK_OrderClient">
             <End Role="Client" EntitySet="Clients" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderOrderProduct" Association="WebShopModel.FK_OrderOrderProduct">
             <End Role="Order" EntitySet="Orders" />
-            <End Role="Products_OrderProduct" EntitySet="Products_OrderProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderProduct_inherits_Product" Association="WebShopModel.FK_OrderProduct_inherits_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Products_OrderProduct" EntitySet="Products_OrderProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StoreProduct_inherits_Product" Association="WebShopModel.FK_StoreProduct_inherits_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Products_StoreProduct" EntitySet="Products_StoreProduct" />
+            <End Role="Products_OrderProduct" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
         <EnumType Name="Section">
@@ -184,29 +174,17 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Double" Nullable="false" />
-          <Property Name="Section" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Products_OrderProduct" Relationship="WebShopModel.FK_OrderProduct_inherits_Product" FromRole="Product" ToRole="Products_OrderProduct" />
-          <NavigationProperty Name="Products_StoreProduct" Relationship="WebShopModel.FK_StoreProduct_inherits_Product" FromRole="Product" ToRole="Products_StoreProduct" />
+          <Property Name="Section" Type="WebShopModel.Section" Nullable="false" />
         </EntityType>
-        <EntityType Name="Products_OrderProduct">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
+        <EntityType Name="Products_OrderProduct" BaseType="WebShopModel.Product">
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="ReceiptId" Type="Int32" Nullable="false" />
           <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Order" Relationship="WebShopModel.FK_OrderOrderProduct" FromRole="Products_OrderProduct" ToRole="Order" />
-          <NavigationProperty Name="Product" Relationship="WebShopModel.FK_OrderProduct_inherits_Product" FromRole="Products_OrderProduct" ToRole="Product" />
         </EntityType>
-        <EntityType Name="Products_StoreProduct">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
+        <EntityType Name="Products_StoreProduct" BaseType="WebShopModel.Product">
           <Property Name="Img" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Stock" Type="Int32" Nullable="false" />
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="WebShopModel.FK_StoreProduct_inherits_Product" FromRole="Products_StoreProduct" ToRole="Product" />
         </EntityType>
         <Association Name="FK_OrderClient">
           <End Type="WebShopModel.Client" Role="Client" Multiplicity="1" />
@@ -229,34 +207,6 @@
             </Principal>
             <Dependent Role="Products_OrderProduct">
               <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderProduct_inherits_Product">
-          <End Type="WebShopModel.Product" Role="Product" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="WebShopModel.Products_OrderProduct" Role="Products_OrderProduct" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Products_OrderProduct">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StoreProduct_inherits_Product">
-          <End Type="WebShopModel.Product" Role="Product" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="WebShopModel.Products_StoreProduct" Role="Products_StoreProduct" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Products_StoreProduct">
-              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -286,31 +236,27 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="WebShopModel.Product">
+            <EntityTypeMapping TypeName="IsTypeOf(WebShopModel.Product)">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Section" ColumnName="Section" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products_OrderProduct">
-            <EntityTypeMapping TypeName="WebShopModel.Products_OrderProduct">
+            <EntityTypeMapping TypeName="IsTypeOf(WebShopModel.Products_OrderProduct)">
               <MappingFragment StoreEntitySet="Products_OrderProduct">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="ReceiptId" ColumnName="ReceiptId" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ReceiptId" ColumnName="ReceiptId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products_StoreProduct">
-            <EntityTypeMapping TypeName="WebShopModel.Products_StoreProduct">
+            <EntityTypeMapping TypeName="IsTypeOf(WebShopModel.Products_StoreProduct)">
               <MappingFragment StoreEntitySet="Products_StoreProduct">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Stock" ColumnName="Stock" />
                 <ScalarProperty Name="Img" ColumnName="Img" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

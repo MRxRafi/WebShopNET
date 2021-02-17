@@ -28,7 +28,7 @@ namespace WebShop.Models
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Products_OrderProduct> Products_OrderProduct { get; set; }
+
         public virtual DbSet<Products_StoreProduct> Products_StoreProduct { get; set; }
     }
 }
