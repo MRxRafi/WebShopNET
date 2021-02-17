@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WebShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Client_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Section" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products_OrderProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="ReceiptId" Type="int" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products_StoreProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Img" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Stock" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_OrderClient">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderOrderProduct">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Products_OrderProduct" Type="Self.Products_OrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products_OrderProduct">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderProduct_inherits_Product">
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Products_OrderProduct" Type="Self.Products_OrderProduct" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products_OrderProduct">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StoreProduct_inherits_Product">
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Products_StoreProduct" Type="Self.Products_StoreProduct" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products_StoreProduct">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WebShopModelStoreContainer">
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products_OrderProduct" EntityType="Self.Products_OrderProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products_StoreProduct" EntityType="Self.Products_StoreProduct" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_OrderClient" Association="Self.FK_OrderClient">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderOrderProduct" Association="Self.FK_OrderOrderProduct">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Products_OrderProduct" EntitySet="Products_OrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderProduct_inherits_Product" Association="Self.FK_OrderProduct_inherits_Product">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Products_OrderProduct" EntitySet="Products_OrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StoreProduct_inherits_Product" Association="Self.FK_StoreProduct_inherits_Product">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Products_StoreProduct" EntitySet="Products_StoreProduct" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WebShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WebShopEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Clients" EntityType="WebShopModel.Client" />
+          <EntitySet Name="Orders" EntityType="WebShopModel.Order" />
+          <EntitySet Name="Products" EntityType="WebShopModel.Product" />
+          <EntitySet Name="Products_OrderProduct" EntityType="WebShopModel.Products_OrderProduct" />
+          <EntitySet Name="Products_StoreProduct" EntityType="WebShopModel.Products_StoreProduct" />
+          <AssociationSet Name="FK_OrderClient" Association="WebShopModel.FK_OrderClient">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderOrderProduct" Association="WebShopModel.FK_OrderOrderProduct">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Products_OrderProduct" EntitySet="Products_OrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderProduct_inherits_Product" Association="WebShopModel.FK_OrderProduct_inherits_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Products_OrderProduct" EntitySet="Products_OrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StoreProduct_inherits_Product" Association="WebShopModel.FK_StoreProduct_inherits_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Products_StoreProduct" EntitySet="Products_StoreProduct" />
+          </AssociationSet>
+        </EntityContainer>
+        <EnumType Name="Section">
+          <Member Name="FOOD" />
+          <Member Name="CLEANING" />
+          <Member Name="BOOKS" />
+          <Member Name="TECH" />
+          <Member Name="OTHER" />
+        </EnumType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="WebShopModel.FK_OrderClient" FromRole="Client" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Client_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="WebShopModel.FK_OrderClient" FromRole="Order" ToRole="Client" />
+          <NavigationProperty Name="Products_OrderProduct" Relationship="WebShopModel.FK_OrderOrderProduct" FromRole="Order" ToRole="Products_OrderProduct" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Section" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products_OrderProduct" Relationship="WebShopModel.FK_OrderProduct_inherits_Product" FromRole="Product" ToRole="Products_OrderProduct" />
+          <NavigationProperty Name="Products_StoreProduct" Relationship="WebShopModel.FK_StoreProduct_inherits_Product" FromRole="Product" ToRole="Products_StoreProduct" />
+        </EntityType>
+        <EntityType Name="Products_OrderProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ReceiptId" Type="Int32" Nullable="false" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="WebShopModel.FK_OrderOrderProduct" FromRole="Products_OrderProduct" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="WebShopModel.FK_OrderProduct_inherits_Product" FromRole="Products_OrderProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Products_StoreProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Img" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Stock" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="WebShopModel.FK_StoreProduct_inherits_Product" FromRole="Products_StoreProduct" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_OrderClient">
+          <End Type="WebShopModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="WebShopModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderOrderProduct">
+          <End Type="WebShopModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="WebShopModel.Products_OrderProduct" Role="Products_OrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products_OrderProduct">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderProduct_inherits_Product">
+          <End Type="WebShopModel.Product" Role="Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebShopModel.Products_OrderProduct" Role="Products_OrderProduct" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products_OrderProduct">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StoreProduct_inherits_Product">
+          <End Type="WebShopModel.Product" Role="Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebShopModel.Products_StoreProduct" Role="Products_StoreProduct" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products_StoreProduct">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WebShopModelStoreContainer" CdmEntityContainer="WebShopEntities" >
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="WebShopModel.Client">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="WebShopModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="WebShopModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products_OrderProduct">
+            <EntityTypeMapping TypeName="WebShopModel.Products_OrderProduct">
+              <MappingFragment StoreEntitySet="Products_OrderProduct">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="ReceiptId" ColumnName="ReceiptId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products_StoreProduct">
+            <EntityTypeMapping TypeName="WebShopModel.Products_StoreProduct">
+              <MappingFragment StoreEntitySet="Products_StoreProduct">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="Img" ColumnName="Img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
