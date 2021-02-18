@@ -36,6 +36,7 @@ namespace WebShop.Controllers
         }
 
         // GET: Products/Create
+        [Authorize(Users = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +47,7 @@ namespace WebShop.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "Admin")]
         public ActionResult Create([Bind(Include = "Id,Img,Stock,Name,Price,Section")] Products_StoreProduct products_StoreProduct)
         {
             if (ModelState.IsValid)
@@ -59,6 +61,7 @@ namespace WebShop.Controllers
         }
 
         // GET: Products/Edit/5
+        [Authorize(Users = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +81,7 @@ namespace WebShop.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,Img,Stock,Name,Price,Section")] Products_StoreProduct products_StoreProduct)
         {
             if (ModelState.IsValid)
@@ -90,6 +94,7 @@ namespace WebShop.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Users = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +112,7 @@ namespace WebShop.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Products_StoreProduct products_StoreProduct = db.Products_StoreProduct.Find(id);

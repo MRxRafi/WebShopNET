@@ -49,9 +49,8 @@ namespace WebShop.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Correo electrónico")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Nombre de usuario")]
+        public string Name { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -70,6 +69,14 @@ namespace WebShop.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Nombre de usuario")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Dirección")]
+        public string Address { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
@@ -79,6 +86,15 @@ namespace WebShop.Models
         [Display(Name = "Confirmar contraseña")]
         [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
+
+        public Client ToClient()
+        {
+            Client client = new Client();
+            client.Name = this.Name;
+            client.Address = this.Address;
+            client.Email = this.Email;
+            return client;
+        }
     }
 
     public class ResetPasswordViewModel
