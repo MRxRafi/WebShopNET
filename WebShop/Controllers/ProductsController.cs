@@ -52,6 +52,10 @@ namespace WebShop.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (products_StoreProduct.Img == null)
+                {
+                    products_StoreProduct.Img = "https://www.allianceplast.com/wp-content/uploads/no-image.png";
+                }
                 db.Products_StoreProduct.Add(products_StoreProduct);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -130,6 +134,10 @@ namespace WebShop.Controllers
                 orderProduct = storeProduct.ToOrderProduct();
                 shoppingCart.Add(orderProduct);
                 
+            }
+            if (orderProduct.Quantity + 1 > storeProduct.Stock)
+            {
+                return View("NoStock");
             }
             orderProduct.Quantity += 1;
             return RedirectToAction("Index");
