@@ -30,5 +30,7 @@ namespace WebShop.Models
         public virtual DbSet<Product> Products { get; set; }
 
         public virtual DbSet<Products_StoreProduct> Products_StoreProduct { get; set; }
+
+        public System.Data.Entity.DbSet<WebShop.Models.Products_OrderProduct> Products_OrderProduct { get; set; }
     }
 }

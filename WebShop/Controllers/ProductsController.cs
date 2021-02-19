@@ -121,6 +121,20 @@ namespace WebShop.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult AddToCart(int id, ShoppingCart shoppingCart)
+        {
+            Products_StoreProduct storeProduct = db.Products_StoreProduct.Find(id);
+            Products_OrderProduct orderProduct = shoppingCart.Find(p => p.Id == storeProduct.Id);
+            if (orderProduct == null)
+            {
+                orderProduct = storeProduct.ToOrderProduct();
+                shoppingCart.Add(orderProduct);
+                
+            }
+            orderProduct.Quantity += 1;
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
