@@ -24,8 +24,6 @@ public partial class Products_OrderProduct : Product
 
     public int OrderId { get; set; }
 
-
-
     public virtual Order Order { get; set; }
 
 }
