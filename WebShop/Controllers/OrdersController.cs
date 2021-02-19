@@ -19,6 +19,7 @@ namespace WebShop.Controllers
         public ActionResult Index()
         {
             var orders = db.Orders.Include(o => o.Client);
+            orders = orders.Where(o => o.Client.Name.Equals(User.Identity.Name));
             return View(orders.ToList());
         }
 
@@ -47,6 +48,7 @@ namespace WebShop.Controllers
             Client myClient = db.Clients.Where(client => client.Name.Equals(User.Identity.Name)).First();
             Order order = db.Orders.Add(new Order(shoppingCart, myClient));
             db.SaveChanges();
+            shoppingCart.Clear();
             return RedirectToAction("Details", new { id = order.Id });
         }
 

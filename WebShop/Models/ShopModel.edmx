@@ -12,7 +12,7 @@
           <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -20,7 +20,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="Client_Id" Type="int" Nullable="false" />
+          <Property Name="Client_Id" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -154,7 +154,7 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Orders" Relationship="WebShopModel.FK_OrderClient" FromRole="Client" ToRole="Order" />
         </EntityType>
         <EntityType Name="Order">
@@ -163,7 +163,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Client_Id" Type="Int32" Nullable="false" />
+          <Property Name="Client_Id" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Client" Relationship="WebShopModel.FK_OrderClient" FromRole="Order" ToRole="Client" />
           <NavigationProperty Name="Products_OrderProduct" Relationship="WebShopModel.FK_OrderOrderProduct" FromRole="Order" ToRole="Products_OrderProduct" />
         </EntityType>
