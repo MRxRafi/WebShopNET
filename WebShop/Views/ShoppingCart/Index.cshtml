@@ -47,11 +47,9 @@
         }
 
     </table>
-
-    if (User.Identity.IsAuthenticated)
-    {
-        <input type="button" value="Buy" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Orders")'" />
-    }
+    
+    <input type="button" value="Buy" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Orders")'" />
+    
 }
 else
 {

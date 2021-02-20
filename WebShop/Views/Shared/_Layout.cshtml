@@ -1,12 +1,13 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <title>@ViewBag.Title - Amason</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="https://kit.fontawesome.com/74d41a556d.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -22,10 +23,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     <li>@Html.ActionLink("Productos", "Index", "Products")</li>
-                    <li>@Html.ActionLink("Carrito", "Index", "ShoppingCart")</li>
+                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -35,7 +34,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - Amason</p>
         </footer>
     </div>
 

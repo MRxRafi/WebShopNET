@@ -6,6 +6,7 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
+        <li><a href="@Url.Action("Index", "ShoppingCart")"><i class="fas fa-shopping-cart"></i></a></li>
         <li>
             @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
@@ -16,6 +17,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
+        <li><a href="@Url.Action("Index", "ShoppingCart")"><i class="fas fa-shopping-cart"></i></a></li>
         <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>

@@ -2,29 +2,28 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+<div class="jumbotron wrapper">
     <h1>AMASON</h1>
     <p class="lead">Amason es la nueva tienda de España que para nada copia el modelo de otra.</p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>Productos</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            En nuestra tienda puede ver productos a través de la pestaña "productos". En ella 
+            podrá observar el nombre del producto, la imagen asociada, el precio y la opción 
+            de añadir el producto a su carrito. También puede ver el stock que hay en la tienda 
+            del producto, no pudiendo añadir al carrito en caso de que no haya productos suficientes.
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><a href="@Url.Action("Index", "Products")" class="btn btn-info">Productos</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Pedidos</h2>
+        <p>
+            En nuestra tienda también puede visualizar los pedidos que haya comprado. Podrá observar el importe total, 
+            los productos que ha comprado y la fecha de adquisición. Solo para usuarios registrados.
+        </p>
+        <p><a href="@Url.Action("Index", "Orders")" class="btn btn-info">Pedidos</a></p>
     </div>
 </div>
