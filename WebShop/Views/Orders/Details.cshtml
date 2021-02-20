@@ -17,15 +17,44 @@
         <dd>
             @Html.DisplayFor(model => model.Date)
         </dd>
+    </dl>
+    <table class="table">
+        <tr>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Precio
+            </th>
+            <th>
+                Cantidad
+            </th>
+            <th></th>
+        </tr>
 
+        @foreach (var item in Model.Products_OrderProduct)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price) $
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+            </tr>
+        }
+    </table>
+    <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Client.Email)
+            Precio Total
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Client.Email)
+            @Model.TotalPrice() $
         </dd>
-
     </dl>
 </div>
 <p>
