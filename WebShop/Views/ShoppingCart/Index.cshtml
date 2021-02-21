@@ -41,14 +41,14 @@
                     @Html.DisplayFor(modelItem => item.Section)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Eliminar una unidad", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-danger" })
                 </td>
             </tr>
         }
 
     </table>
     
-    <input type="button" value="Buy" class="btn btn-outline-light" onclick="location.href='@Url.Action("Create", "Orders")'" />
+    <input type="button" value="Buy" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Orders")'" />
     
 }
 else
@@ -56,5 +56,5 @@ else
     <h3>No hay artículos en tu carrito</h3>
 }
 
-@Html.ActionLink("Volver a productos", "Index", "Products")
+@Html.ActionLink("Volver a productos", "Index", "Products", null, new { @class= "btn btn-outline-info" })
 

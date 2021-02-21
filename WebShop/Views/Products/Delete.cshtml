@@ -36,11 +36,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Img)
+            Imagen
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Img)
+            <img src="@Model.Img" class="img-thumbnail" style="max-height: 300px; max-width: 300px;" />
         </dd>
 
         <dt>
@@ -58,7 +58,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-outline-danger" /> |
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-info" })
+            @Html.ActionLink("Volver a productos", "Index", null, new { @class = "btn btn-outline-info" })
         </div>
     }
 </div>

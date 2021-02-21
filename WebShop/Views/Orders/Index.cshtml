@@ -29,7 +29,7 @@
                     @item.TotalPrice() $
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-outline-info" })
                 </td>
             </tr>
         }
@@ -37,6 +37,6 @@
     </table>
 } else
 {
-    <h3>No ha realizado ningún pedido todavía. Compre ahora en un solo click con Amason: </h3> @Html.ActionLink("Productos", "Index", "Products");
+    <h3>No ha realizado ningún pedido todavía. Compre ahora en un solo click con Amason: </h3> @Html.ActionLink("Productos", "Index", "Products", null, new { @class = "btn btn-outline-info" });
 }
 
