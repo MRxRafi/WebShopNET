@@ -15,7 +15,7 @@ namespace WebShop.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Créditos de la aplicación:";
 
             return View();
         }

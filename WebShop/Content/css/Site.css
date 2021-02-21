@@ -1,6 +1,5 @@
-﻿
-body {
-    padding-top: 50px;
+﻿body {
+    padding-top: 0px;
     padding-bottom: 20px;
 }
 
@@ -28,5 +27,5 @@ textarea {
 }
 
 .wrapper {
-    margin: 20px;
+    margin-top: 20px;
 }

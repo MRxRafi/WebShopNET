@@ -15,14 +15,14 @@
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(m => m.Name, new { @class = "col-md-3 control-label" })
                     <div class="col-md-10">
                         @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
                     <div class="col-md-10">
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
@@ -38,12 +38,13 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Iniciar sesión" class="btn btn-default" />
+                        <input type="submit" value="Iniciar sesión" class="btn btn-outline-info" />
                     </div>
                 </div>
-                <p>
-                    @Html.ActionLink("Registrarse como usuario nuevo", "Register")
-                </p>
+                <div class="col-md-offset-2 col-md-10">
+                     @Html.ActionLink("Registrarse como usuario nuevo", "Register", null, new { @class = "btn btn-outline-primary" })
+                </div>
+                
                 @* Habilite esta opción una vez tenga la confirmación de la cuenta habilitada para la funcionalidad de restablecimiento de contraseña
                     <p>
                         @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
